@@ -11,6 +11,9 @@ import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
 import com.umeng.socialize.PlatformConfig;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * project:NewShare
  * package:yuncar.aten.com.newshare
@@ -54,6 +57,12 @@ public class UMAtApplication extends Application {
             }
         };
         mPushAgent.setNotificationClickHandler(umengMessageHandler);
+
+    }
+    public static  <T>List<T> ddd(T t){
+        ArrayList<T> ss = new ArrayList<>();
+        ss.add(t);
+        return ss;
     }
     /**
      * 初始化 友盟分享

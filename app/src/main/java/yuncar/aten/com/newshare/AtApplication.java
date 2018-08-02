@@ -11,6 +11,11 @@ import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.entity.UMessage;
 import com.umeng.socialize.PlatformConfig;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * project:NewShare
  * package:yuncar.aten.com.newshare
@@ -24,6 +29,7 @@ public class AtApplication extends Application {
         super.onCreate();
         initUMPUSH();
         initUmengShared();
+
     }
     private void initUMPUSH(){//友盟推送
         PushAgent mPushAgent = PushAgent.getInstance(this);
@@ -60,7 +66,33 @@ public class AtApplication extends Application {
 
         PlatformConfig.setWeixin("wx215bb4304a0f3305", "5f8f0873f787bdd1e7f5b3de5e57e23b");
         PlatformConfig.setSinaWeibo("2170570290", "b644d00071e738afc45e4caa0ad963ce","http://sns.whalecloud.com");
-//        PlatformConfig.setQQZone("1106576170", "FeYJM96L754LOuyc");
         PlatformConfig.setQQZone("1106750895", "JYsQDXS55VLEJinP");
+    }
+
+    public static <T> List<List<T>> divider(Collection<T> datas, Comparator<? super T> c) {
+        List<List<T>> result = new ArrayList<List<T>>();
+        for (T t : datas) {
+            boolean isSameGroup = false;
+            //往对象数组中加数据
+            for (int j = 0; j < result.size(); j++) {
+                //比较是否在同一组（遍历查询，每一个数据和每一个数组的第一个数据做对比）
+                if (c.compare(t, result.get(j).get(0)) == 0) {
+                    //同组的第2,3,4,5........数据
+                    isSameGroup = true;
+                    result.get(j).add(t);
+                    break;
+                }else {
+                                    //不同组的第一个数据（接下啦创建一个新的对象数据）
+                }
+            }
+            //创建一个对象数组
+            if (!isSameGroup) {
+                List<T> innerList = new ArrayList<T>();
+                result.add(innerList);
+                //创建每一组的第一个数据
+                innerList.add(t);
+            }
+        }
+        return result;
     }
 }
